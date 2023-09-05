@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>AsistenciAPP</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-text-center ion-align-items-center">
+  <div class="ion-text-center">
+    <h1>Recupera tu contraseña</h1>
+  </div><br><br><br><br><br>
+
+  <ion-item>
+    <ion-label position="floating">Ingrese nombre de usuario</ion-label>
+    <ion-input type="text" [(ngModel)]="usernameInput"></ion-input>
+  </ion-item>
+
+  <ion-button expand="full" (click)="mostrarContrasena()">Aceptar</ion-button>
+  <ion-button fill="clear" expand="full" (click)="irALogin()">Volver a login</ion-button>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-title>Rocket Software</ion-title>
+  </ion-toolbar>
+</ion-footer>

@@ -1,20 +1,64 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+<ion-header>
+  <ion-toolbar collapse="condense">
+    <ion-title size="large">AsistenciAPP</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content id="container">
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+  <div class="ion-text-center">
+    <h1>Bienvenido</h1>
   </div>
+
+  <div class="ion-text-center">
+    <h2>Usuario: {{ data.userName }}</h2>
+  </div>
+
+  <div class="ion-text-center">
+    <h3>Información Adicional</h3>
+  </div>
+
+  <ion-list>
+    <ion-item>
+      <ion-label position="floating">Nombre</ion-label>
+      <ion-input [(ngModel)]="name" placeholder="Ingrese Nombre"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Apellido</ion-label>
+      <ion-input [(ngModel)]="last_name" placeholder="Ingrese apellido"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Nivel de Educación</ion-label>
+      <ion-select [(ngModel)]="EducLevel" interface="popover" placeholder="Seleccione Nivel de Educación">
+        <ion-select-option value="apples">Apples</ion-select-option>
+        <ion-select-option value="oranges">Oranges</ion-select-option>
+        <ion-select-option value="bananas">Bananas</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Fecha de Nacimiento</ion-label>
+      <ion-input [(ngModel)]="bDate" type="date"></ion-input>
+    </ion-item>
+  </ion-list>
+
+  <ion-row>
+    <ion-col size="6" class="ion-text-center">
+      <ion-button (click)="nullfield()">Limpiar</ion-button>
+    </ion-col>
+    <ion-col size="6">
+      <ion-button (click)="mostrarInformacion()">Mostrar</ion-button>
+    </ion-col>
+  </ion-row>
+
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <div class="footer-text ion-text-center">
+      App desarrollado por Rocket Software
+    </div>
+  </ion-toolbar>
+</ion-footer>
