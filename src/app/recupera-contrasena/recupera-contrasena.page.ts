@@ -10,9 +10,9 @@ import { AlertController } from '@ionic/angular';
 export class RecuperaContrasenaPage {
 
   users = [
-    { userName: 'Pato', password: 'pene' },
+    { userName: 'Pato', password: '1234' },
     { userName: 'Ignacio', password: 'admi' },
-    { userName: 'user3', password: '1234' },
+    { userName: 'user3', password: '1111' },
   ];
 
   // se crea la variable para que el imput la reciba 

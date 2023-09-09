@@ -39,8 +39,11 @@
     </ion-item>
 
     <ion-item>
-      <ion-label>Fecha de Nacimiento</ion-label>
-      <ion-input [(ngModel)]="bDate" type="date"></ion-input>
+      <!-- <ion-label>Fecha de Nacimiento</ion-label>
+      <ion-input [(ngModel)]="bDate" type="date"></ion-input> -->
+      <input [(ngModel)]="bDate" matInput [matDatepicker]="myDatepicker" placeholder="Fecha Nacimiento">
+      <mat-datepicker-toggle  [for]="myDatepicker" matSuffix>myDatepicker</mat-datepicker-toggle>
+      <mat-datepicker #myDatepicker>myDatepicker</mat-datepicker>
     </ion-item>
   </ion-list>
 
