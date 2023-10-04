@@ -1,12 +1,8 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { Router, NavigationExtras } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { AlertController, NavController } from '@ionic/angular';
 import {Animation, AnimationController} from '@ionic/angular'
-//import {Component} from '@angular/core';
-import {MatIconModule} from '@angular/material/icon';
-import {MatButtonModule} from '@angular/material/button';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import { FormGroup, FormControl, Validator, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -15,32 +11,40 @@ import {MatFormFieldModule} from '@angular/material/form-field';
   
 })
 
-
 export class LoginPage implements OnInit {
-  hide = true;
-  users = [
-    { userName: 'Pato', password: '1234' },
-    { userName: 'Ignacio', password: 'admi' },
-    { userName: 'user3', password: '1111' },
-  ];
-  user={
-    userName:"",
-    password:""
-  }
-  apellido : any ;
-  nombreN : any ;
+  //userName
+  //password
+
+  formularioLogin: FormGroup;
+
+
+  // users = [
+  //   { userName: 'Pato', password: '1234' },
+  //   { userName: 'Ignacio', password: 'admi' },
+  //   { userName: 'user3', password: '1111' },
+  // ];
+  // user={
+  //   userName:"",
+  //   password:""
+  // }
 
   public state:string = "inactive";
 
   @ViewChild("efectoLogin", {read: ElementRef, static: true}) efectoLogin!: ElementRef;
 
   constructor(
+    public fb: FormBuilder,
+    public navCtrl: NavController,
     private router: Router,
     private alertController: AlertController,
     private animationCtrl: AnimationController
-  ) {
-     
+  ) { 
+    this.formularioLogin = this.fb.group({
+      'userName': new FormControl("",Validators.required),
+      'password': new FormControl("",Validators.required)
+    })
   }
+  
 
   ngOnInit() {}
 
@@ -60,6 +64,27 @@ export class LoginPage implements OnInit {
   }
   
   async ingresar() {
+    var f = this.formularioLogin.value;
+
+    var userLocal = localStorage.getItem('userLocal');
+    var users = userLocal ? JSON.parse(userLocal) : null;
+
+    if (users.userName == f.userName && users.password == f.password){
+      console.log('ingresado')
+      localStorage.setItem('ingresado', 'true')
+      
+      this.router.navigate(['/home', { userName: users.userName }]);
+    } else {
+      console.log('Credenciales incorrectas');
+      const alert = await this.alertController.create({
+        header: 'Error',
+        message: 'Usuario o contraseña incorrecto',
+        buttons: ['Aceptar'],
+      });
+      await alert.present();
+    }
+    
+     /*
     const foundUser = this.users.find(
       (u) => u.userName === this.user.userName && u.password === this.user.password
     );
@@ -88,18 +113,8 @@ export class LoginPage implements OnInit {
         buttons: ['Aceptar'],
       });
       await alert.present();
-    }
-  }
-
-  recuperaContrasena() {
-    let navigationExtras: NavigationExtras ={
-      state: {
-        users: this.users // Pasar el arreglo de usuarios a la página de recupera-contrasena
-      }
-    };
-    this.router.navigate(['/recupera-contrasena'], navigationExtras);
+    }*/
   }
 
 }
 
-//recupera-contrasena

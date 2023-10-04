@@ -34,8 +34,16 @@ export class RecuperaContrasenaPage {
       // Crear una alerta con la contraseña del usuario
       const alert = await this.alertController.create({
         header: 'Contraseña',
-        message: `La contraseña del usuario ${user.userName} es: ${user.password}`,
-        buttons: ['Aceptar'],
+        message: `La contraseña del usuario ${user.userName} se ha enviado al correo electrónico`,
+        buttons: [
+          {
+            text: 'Aceptar',
+            handler: () => {
+              // Redirigir al usuario de nuevo a la página de inicio de sesión
+              this.router.navigate(['/login']);
+            }
+          }
+        ],
       });
       // Mostrar la alerta
       await alert.present();

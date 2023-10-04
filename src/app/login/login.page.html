@@ -12,45 +12,37 @@
   
   <ion-card >
       <ion-card-content>
-        <ion-item lines="full">
-          <ion-label position="floating">Usuario</ion-label>
-          <!-- Usamos ngModel para indicarle al input el objeto a utilizar-->
-          <ion-input type="text" [(ngModel)]="user.userName" minlength="3" maxlength="8"></ion-input>
-        </ion-item>
+        <form [formGroup]="formularioLogin">
+          <ion-item lines="full">
+            <ion-label position="floating">Usuario</ion-label>
+            <ion-input type="text" formControlName="userName" minlength="3" maxlength="8"></ion-input>
+          </ion-item>
+          
+          <ion-item lines="full">
+            <ion-label position="floating">Password</ion-label>
+            <ion-input type="password" formControlName="password" maxlength="4"></ion-input>
+          </ion-item>
+        </form>
 
-
-        <!-- <ion-item lines="full">
-          <mat-form-field>
-            <mat-label>Enter your password</mat-label>
-            <input matInput [type]="hide ? 'password' : 'text'">
-            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-            </button>
-          </mat-form-field>
-        </ion-item> -->
-
-
-        <ion-item lines="full">
-          <ion-label position="floating">Password</ion-label>
-          <ion-input type="password" [(ngModel)]="user.password" maxlength="4"></ion-input>
-        </ion-item>
         <ion-row>
           <ion-col>
-            <!-- Indicamos mediante el (click) la funcion a quien referenciara-->
             <ion-button expand="full" (click)="ingresar()">Ingresar</ion-button>
           </ion-col>
         </ion-row>
+
         <ion-row>
           <ion-col>
-            <ion-row>
-          <ion-col>
-            <ion-button fill="clear" expand="full" (click)="recuperaContrasena()">¿Olvidaste tu contraseña?</ion-button>
+            <ion-button fill="clear" expand="full" [routerLink]="['/recupera-contrasena']">¿Olvidaste tu contraseña?</ion-button>
           </ion-col>
         </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <ion-button fill="clear" expand="full" [routerLink]="['/registro']">Regístrate!</ion-button>
           </ion-col>
         </ion-row>
       </ion-card-content>
-    </ion-card>
+  </ion-card>
   
 </ion-content>
 <ion-footer>

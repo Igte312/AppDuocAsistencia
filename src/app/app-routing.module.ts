@@ -19,6 +19,10 @@ const routes: Routes = [
     path: 'recupera-contrasena',
     loadChildren: () => import('./recupera-contrasena/recupera-contrasena.module').then( m => m.RecuperaContrasenaPageModule)
   },
+  {
+    path: 'registro',
+    loadChildren: () => import('./registro/registro.module').then( m => m.RegistroPageModule)
+  },
 ];
 
 @NgModule({
