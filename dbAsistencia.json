@@ -1,0 +1,33 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "userName": "igna",
+      "mail": "igna@duocuc.cl",
+      "password": "123",
+      "docente": 0
+    },
+    {
+      "id": 2,
+      "userName": "pato",
+      "mail": "pato@duocuc.cl",
+      "password": "123",
+      "docente": 1
+    },
+    {
+      "idUser": null,
+      "userName": "lula",
+      "mail": "lula@",
+      "password": "123",
+      "docente": 0,
+      "id": 3
+    },
+    {
+      "id": 4,
+      "userName": "lula",
+      "mail": "lula@gmail.com",
+      "password": "123",
+      "docente": 0
+    }
+  ]
+}

@@ -12,21 +12,11 @@ import { FormGroup, FormControl, Validator, FormBuilder, Validators } from '@ang
 })
 
 export class LoginPage implements OnInit {
-  //userName
-  //password
+
 
   formularioLogin: FormGroup;
 
 
-  // users = [
-  //   { userName: 'Pato', password: '1234' },
-  //   { userName: 'Ignacio', password: 'admi' },
-  //   { userName: 'user3', password: '1111' },
-  // ];
-  // user={
-  //   userName:"",
-  //   password:""
-  // }
 
   public state:string = "inactive";
 
@@ -48,6 +38,35 @@ export class LoginPage implements OnInit {
 
   ngOnInit() {}
 
+
+  
+  async ingresar() {
+    var f = this.formularioLogin.value;
+
+    var userLocal = localStorage.getItem('userLocal');
+    var users = userLocal ? JSON.parse(userLocal) : null;
+
+    if (users.userName == f.userName && users.password == f.password){
+      console.log('ingresado')
+      localStorage.setItem('ingresado', 'true')
+      //this.router.navigate(['/home', { userName: users.userName }]);
+      this.navCtrl.navigateRoot(['/home', { userName: users.userName }]);
+    } else {
+      console.log('Credenciales incorrectas');
+      const alert = await this.alertController.create({
+        header: 'Error',
+        message: 'Usuario o contraseña incorrecto',
+        buttons: ['Aceptar'],
+      });
+      await alert.present();
+    }
+
+  }
+
+
+
+
+
   ngAfterViewInit() {
     setInterval(() => {
       const animation = this.animationCtrl
@@ -62,59 +81,5 @@ export class LoginPage implements OnInit {
       animation.play();
     }, 5000); // Iniciar la animación cada 5 segundos (5000 milisegundos)
   }
-  
-  async ingresar() {
-    var f = this.formularioLogin.value;
-
-    var userLocal = localStorage.getItem('userLocal');
-    var users = userLocal ? JSON.parse(userLocal) : null;
-
-    if (users.userName == f.userName && users.password == f.password){
-      console.log('ingresado')
-      localStorage.setItem('ingresado', 'true')
-      
-      this.router.navigate(['/home', { userName: users.userName }]);
-    } else {
-      console.log('Credenciales incorrectas');
-      const alert = await this.alertController.create({
-        header: 'Error',
-        message: 'Usuario o contraseña incorrecto',
-        buttons: ['Aceptar'],
-      });
-      await alert.present();
-    }
-    
-     /*
-    const foundUser = this.users.find(
-      (u) => u.userName === this.user.userName && u.password === this.user.password
-    );
-
-    if (foundUser) {
-      let navigationExtras: NavigationExtras = {
-        state: {
-          user: this.user, // Passing the authenticated user
-        },
-      };
-      this.router.navigate(['/home'], navigationExtras);
-    } else if (this.user.userName === '' || this.user.password === '') {
-      const alert = await this.alertController.create({
-        header: 'Error',
-        message: 'Asegúrate de ingresar datos en los campos',
-        buttons: ['Aceptar'],
-      });
-      await alert.present();
-    
-    
-    } else {
-      console.log('Credenciales incorrectas');
-      const alert = await this.alertController.create({
-        header: 'Error',
-        message: 'Usuario o contraseña incorrecto',
-        buttons: ['Aceptar'],
-      });
-      await alert.present();
-    }*/
-  }
-
 }
 
