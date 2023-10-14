@@ -104,7 +104,7 @@ export class RegistroPage implements OnInit {
             {
               text: 'Aceptar',
               handler: () => {
-                localStorage.setItem('ingresado', 'true');
+                //localStorage.setItem('ingresado', 'false');
                 this.navCtrl.navigateRoot(['/login']);
               },
             },

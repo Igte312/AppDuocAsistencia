@@ -1,8 +1,9 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { Router, NavigationExtras } from '@angular/router';
 import { AlertController, NavController } from '@ionic/angular';
-import {Animation, AnimationController} from '@ionic/angular'
+import { AnimationController} from '@ionic/angular'
 import { FormGroup, FormControl, Validator, FormBuilder, Validators } from '@angular/forms';
+import { FakeApiService } from '../servicio/fake-api.service';
 
 @Component({
   selector: 'app-login',
@@ -27,7 +28,8 @@ export class LoginPage implements OnInit {
     public navCtrl: NavController,
     private router: Router,
     private alertController: AlertController,
-    private animationCtrl: AnimationController
+    private animationCtrl: AnimationController,
+    private fakeApiService: FakeApiService
   ) { 
     this.formularioLogin = this.fb.group({
       'userName': new FormControl("",Validators.required),
@@ -40,27 +42,60 @@ export class LoginPage implements OnInit {
 
 
   
+  // async ingresar() {
+  //   var f = this.formularioLogin.value;
+
+  //   var userLocal = localStorage.getItem('userLocal');
+  //   var users = userLocal ? JSON.parse(userLocal) : null;
+
+  //   if (users.userName == f.userName && users.password == f.password){
+  //     console.log('ingresado')
+  //     localStorage.setItem('ingresado', 'true')
+  //     //this.router.navigate(['/home', { userName: users.userName }]);
+  //     this.navCtrl.navigateRoot(['/home', { userName: users.userName }]);
+  //   } else {
+  //     console.log('Credenciales incorrectas');
+  //     const alert = await this.alertController.create({
+  //       header: 'Error',
+  //       message: 'Usuario o contraseña incorrecto',
+  //       buttons: ['Aceptar'],
+  //     });
+  //     await alert.present();
+  //   }
+
+  // }
   async ingresar() {
     var f = this.formularioLogin.value;
-
-    var userLocal = localStorage.getItem('userLocal');
-    var users = userLocal ? JSON.parse(userLocal) : null;
-
-    if (users.userName == f.userName && users.password == f.password){
-      console.log('ingresado')
-      localStorage.setItem('ingresado', 'true')
-      //this.router.navigate(['/home', { userName: users.userName }]);
-      this.navCtrl.navigateRoot(['/home', { userName: users.userName }]);
-    } else {
-      console.log('Credenciales incorrectas');
-      const alert = await this.alertController.create({
-        header: 'Error',
-        message: 'Usuario o contraseña incorrecto',
-        buttons: ['Aceptar'],
-      });
-      await alert.present();
-    }
-
+  
+    this.fakeApiService.obtenerUsuarios().subscribe(
+      (usuarios) => {
+        const usuario = usuarios.find(u => u.userName === f.userName && u.password === f.password);
+  
+        if (usuario) {
+          // Autenticación exitosa, redirige al usuario a la página de inicio (home)
+          console.log('Usuario autenticado:', usuario);
+          localStorage.setItem('ingresado', 'true');
+          this.navCtrl.navigateRoot(['/home', { userName: f.userName }]);
+        } else {
+          // Autenticación fallida, muestra una alerta
+          this.mostrarAlerta('Error', 'Usuario o contraseña incorrectos');
+        }
+      },
+      (error) => {
+        // Error al obtener la lista de usuarios, muestra una alerta
+        console.error('Error al obtener usuarios:', error);
+        this.mostrarAlerta('Error', 'No se pudo obtener la lista de usuarios.');
+      }
+    );
+  }
+    
+  async mostrarAlerta(header: string, message: string) {    
+    const alert = await this.alertController.create({
+      header: header,
+      message: message,
+      buttons: ['Aceptar'],
+    });
+    await alert.present();
   }
 
 

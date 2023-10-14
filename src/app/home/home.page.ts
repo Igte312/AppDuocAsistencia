@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { AlertController, NavController } from '@ionic/angular';
 import { OnInit } from '@angular/core';
 
 @Component({
@@ -15,7 +15,8 @@ export class HomePage  implements OnInit{
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private alertController: AlertController
+    private alertController: AlertController,
+    public navCtrl: NavController,
   ) {
     
   }
@@ -25,5 +26,8 @@ export class HomePage  implements OnInit{
     });
   }
   
-
+  cerrarSesion(){
+    localStorage.removeItem('ingresado')
+    this.navCtrl.navigateRoot(['/home']);
+  }
 }

@@ -34,6 +34,16 @@ export class FakeApiService {
       );
   }
 
+  obtenerUsuarios(): Observable<any[]> {
+    const url = `${this.apiUrl}/users`; // Ajusta la ruta según tu API falsa
+
+    return this.http.get<any[]>(url)
+      .pipe(
+        retry(1), // Intento de reenvío en caso de error
+        catchError(this.handleError) // Manejo de errores
+      );
+  }
+
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // Error del lado del cliente
@@ -46,4 +56,7 @@ export class FakeApiService {
     // Devuelve un mensaje de error observable con detalles
     return throwError('Algo salió mal; por favor, inténtalo de nuevo más tarde.');
   }
+
+
+  
 }
