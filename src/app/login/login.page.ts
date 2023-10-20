@@ -66,29 +66,37 @@ export class LoginPage implements OnInit {
   // }
   async ingresar() {
     var f = this.formularioLogin.value;
-  
+    let NavigationExtras: NavigationExtras = {
+      state: {
+        user: this.formularioLogin.value
+      }
+    }
+
     this.fakeApiService.obtenerUsuarios().subscribe(
       (usuarios) => {
         const usuario = usuarios.find(u => u.userName === f.userName && u.password === f.password);
   
         if (usuario) {
-          // Autenticación exitosa, redirige al usuario a la página de inicio (home)
           console.log('Usuario autenticado:', usuario);
           localStorage.setItem('ingresado', 'true');
-          this.navCtrl.navigateRoot(['/home', { userName: f.userName }]);
+          this.navCtrl.navigateRoot(['/home/verAsistencia', { userName: f.userName }]);
+          this.router.navigate(['/home/verAsistencia'], NavigationExtras);
+          
         } else {
-          // Autenticación fallida, muestra una alerta
           this.mostrarAlerta('Error', 'Usuario o contraseña incorrectos');
         }
       },
       (error) => {
-        // Error al obtener la lista de usuarios, muestra una alerta
         console.error('Error al obtener usuarios:', error);
         this.mostrarAlerta('Error', 'No se pudo obtener la lista de usuarios.');
       }
     );
   }
-    
+   
+  
+
+
+
   async mostrarAlerta(header: string, message: string) {    
     const alert = await this.alertController.create({
       header: header,
@@ -114,7 +122,7 @@ export class LoginPage implements OnInit {
         ]);
   
       animation.play();
-    }, 5000); // Iniciar la animación cada 5 segundos (5000 milisegundos)
+    }, 5000);
   }
 }
 

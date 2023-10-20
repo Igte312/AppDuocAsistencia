@@ -10,7 +10,8 @@ import { OnInit } from '@angular/core';
 })
 export class HomePage  implements OnInit{
   userName: string = "";
-
+  selectedSegment: string = "ver-asistencia";
+  data: any;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -18,16 +19,27 @@ export class HomePage  implements OnInit{
     private alertController: AlertController,
     public navCtrl: NavController,
   ) {
-    
+    this.activatedRoute.queryParams.subscribe((params) => {
+      if (
+        this.router.getCurrentNavigation()?.extras?.state
+      ) {
+        this.data = this.router.getCurrentNavigation()?.extras?.state?.['user'];
+        console.log(this.data);
+      } else {
+        this.router.navigate(['/login']);
+      }
+    });
   }
   ngOnInit() {
-    this.activatedRoute.params.subscribe(params => {
-      this.userName = params['userName'];
-    });
+    // this.activatedRoute.params.subscribe(params => {
+    //   this.userName = params['userName'];
+    // });
+    this.userName = this.activatedRoute.snapshot.paramMap.get('userName') || '';
+
   }
   
   cerrarSesion(){
     localStorage.removeItem('ingresado')
-    this.navCtrl.navigateRoot(['/home']);
+    this.navCtrl.navigateRoot(['/login']);
   }
 }

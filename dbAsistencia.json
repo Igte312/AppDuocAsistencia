@@ -20,34 +20,6 @@
       "mail": "lula@gmail.com",
       "password": "123",
       "docente": 0
-    },
-    {
-      "id": 5,
-      "userName": "felipe",
-      "mail": "felipe@",
-      "password": "123",
-      "docente": 0
-    },
-    {
-      "id": 6,
-      "userName": "cris",
-      "mail": "cris@",
-      "password": "123",
-      "docente": 0
-    },
-    {
-      "id": 7,
-      "userName": "prueba",
-      "mail": "prueba@",
-      "password": "123",
-      "docente": 0
-    },
-    {
-      "id": 8,
-      "userName": "seba",
-      "mail": "seba@",
-      "password": "1234",
-      "docente": 0
     }
   ]
 }

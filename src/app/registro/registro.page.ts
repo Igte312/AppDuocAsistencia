@@ -89,10 +89,9 @@ export class RegistroPage implements OnInit {
       userName: f.userName,
       mail: f.mail,
       password: f.password,
-      docente: 0 // Puedes ajustar este valor según tus necesidades
+      docente: 0 
     };
 
-    // Utiliza el servicio para agregar el nuevo usuario
     this.fakeApiService.agregarUsuario(newUser).subscribe(
       async (response) => {
         console.log('Usuario agregado:', response);
@@ -104,7 +103,6 @@ export class RegistroPage implements OnInit {
             {
               text: 'Aceptar',
               handler: () => {
-                //localStorage.setItem('ingresado', 'false');
                 this.navCtrl.navigateRoot(['/login']);
               },
             },
