@@ -4,6 +4,7 @@ import { AlertController, NavController } from '@ionic/angular';
 import { AnimationController} from '@ionic/angular'
 import { FormGroup, FormControl, Validator, FormBuilder, Validators } from '@angular/forms';
 import { FakeApiService } from '../servicio/fake-api.service';
+import { EventListenerFocusTrapInertStrategy } from '@angular/cdk/a11y';
 
 @Component({
   selector: 'app-login',
@@ -41,29 +42,6 @@ export class LoginPage implements OnInit {
   ngOnInit() {}
 
 
-  
-  // async ingresar() {
-  //   var f = this.formularioLogin.value;
-
-  //   var userLocal = localStorage.getItem('userLocal');
-  //   var users = userLocal ? JSON.parse(userLocal) : null;
-
-  //   if (users.userName == f.userName && users.password == f.password){
-  //     console.log('ingresado')
-  //     localStorage.setItem('ingresado', 'true')
-  //     //this.router.navigate(['/home', { userName: users.userName }]);
-  //     this.navCtrl.navigateRoot(['/home', { userName: users.userName }]);
-  //   } else {
-  //     console.log('Credenciales incorrectas');
-  //     const alert = await this.alertController.create({
-  //       header: 'Error',
-  //       message: 'Usuario o contraseña incorrecto',
-  //       buttons: ['Aceptar'],
-  //     });
-  //     await alert.present();
-  //   }
-
-  // }
   async ingresar() {
     var f = this.formularioLogin.value;
     let NavigationExtras: NavigationExtras = {
@@ -75,13 +53,21 @@ export class LoginPage implements OnInit {
     this.fakeApiService.obtenerUsuarios().subscribe(
       (usuarios) => {
         const usuario = usuarios.find(u => u.userName === f.userName && u.password === f.password);
-  
-        if (usuario) {
+        const dominio = usuario.mail.split('@')[1];
+        if (usuario && dominio === 'duocuc.cl') {
           console.log('Usuario autenticado:', usuario);
           localStorage.setItem('ingresado', 'true');
-          this.navCtrl.navigateRoot(['/home/verAsistencia', { userName: f.userName }]);
+          this.navCtrl.navigateRoot(['/home/verAsistencia', { userName: f.userName , mail: usuario.mail}]);
           this.router.navigate(['/home/verAsistencia'], NavigationExtras);
-          
+          // this.navCtrl.navigateRoot(['profe', { userName: f.userName }]);
+          // this.router.navigate(['profe'], NavigationExtras);
+        }else if (usuario && dominio === 'profesor.duoc.cl'){
+          console.log('Usuario autenticado:', usuario);
+          localStorage.setItem('ingresado', 'true');
+          // this.navCtrl.navigateRoot(['/home/verAsistencia', { userName: f.userName }]);
+          // this.router.navigate(['/home/verAsistencia'], NavigationExtras);
+          this.navCtrl.navigateRoot(['profe', { userName: f.userName , mail: usuario.mail}]);
+          this.router.navigate(['profe'], NavigationExtras);
         } else {
           this.mostrarAlerta('Error', 'Usuario o contraseña incorrectos');
         }

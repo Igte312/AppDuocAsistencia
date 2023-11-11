@@ -30,6 +30,10 @@ const routes: Routes = [
     canActivate: [NoIngresadoGuard]
   },
   {
+    path: 'profe',
+    loadChildren: () => import('./profe/profe.module').then( m => m.ProfePageModule)
+  },
+  {
     path: 'not-found',
     loadChildren: () => import('./not-found/not-found.module').then( m => m.NotFoundPageModule)
   },
@@ -38,6 +42,7 @@ const routes: Routes = [
     redirectTo: '/not-found',
     pathMatch: 'full',
   },
+  
 ];
 
 @NgModule({

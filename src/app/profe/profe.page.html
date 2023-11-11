@@ -9,27 +9,19 @@
     </div>
   
     <div class="ion-text-center">
-      <h2>Estudiante: {{ data.userName }}</h2>
+      <h2>Profesor: {{ data.userName }}</h2>
     </div>
-  </ion-toolbar>
-  <ion-toolbar>
-    <ion-segment [(ngModel)]="selectedSegment">   
-      <ion-segment-button value="ver-asistencia" [routerLink]="['/home/verAsistencia']">
-        <ion-label>Mi Asistencia</ion-label>
-      </ion-segment-button>
-      <ion-segment-button value="escanear" [routerLink]="['/home/escanear']">
-        <ion-label>Escanear</ion-label>
-      </ion-segment-button>
-    </ion-segment>
   </ion-toolbar>
 </ion-header>
 
-<ion-content id="container">
-  
+<ion-content id="container" class="ion-padding ion-text-center"><br><br><br><br>
+  <ion-button (click)="desplegarQR()" expand="full" shape="round" size="large">
+    Desplegar código QR
+  </ion-button>
 
-  
-  <ion-router-outlet></ion-router-outlet>
-  
+  <div *ngIf="qrCodeImage">
+    <img [src]="qrCodeImage" alt="Código QR">
+  </div>
 </ion-content>
 
 <ion-footer>

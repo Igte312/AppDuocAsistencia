@@ -20,6 +20,13 @@
       "mail": "lula@gmail.com",
       "password": "123",
       "docente": 0
+    },
+    {
+      "id": 5,
+      "userName": "luciana",
+      "mail": "luciana@profesor.duoc.cl",
+      "password": "123",
+      "docente": 0
     }
   ]
 }
