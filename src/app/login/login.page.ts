@@ -57,7 +57,7 @@ export class LoginPage implements OnInit {
         if (usuario && dominio === 'duocuc.cl') {
           console.log('Usuario autenticado:', usuario);
           localStorage.setItem('ingresado', 'true');
-          this.navCtrl.navigateRoot(['/home/verAsistencia', { userName: f.userName , mail: usuario.mail}]);
+          //this.navCtrl.navigateRoot(['/home/verAsistencia', { userName: f.userName}]);
           this.router.navigate(['/home/verAsistencia'], NavigationExtras);
           // this.navCtrl.navigateRoot(['profe', { userName: f.userName }]);
           // this.router.navigate(['profe'], NavigationExtras);
@@ -66,7 +66,7 @@ export class LoginPage implements OnInit {
           localStorage.setItem('ingresado', 'true');
           // this.navCtrl.navigateRoot(['/home/verAsistencia', { userName: f.userName }]);
           // this.router.navigate(['/home/verAsistencia'], NavigationExtras);
-          this.navCtrl.navigateRoot(['profe', { userName: f.userName , mail: usuario.mail}]);
+          //this.navCtrl.navigateRoot(['profe', { userName: f.userName}]);
           this.router.navigate(['profe'], NavigationExtras);
         } else {
           this.mostrarAlerta('Error', 'Usuario o contraseña incorrectos');

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ZBarOptions, ZBar } from '@ionic-native/zbar/ngx';
 
 @Component({
   selector: 'app-escanear',

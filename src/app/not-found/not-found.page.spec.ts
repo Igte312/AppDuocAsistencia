@@ -5,13 +5,14 @@ describe('NotFoundPage', () => {
   let component: NotFoundPage;
   let fixture: ComponentFixture<NotFoundPage>;
 
-  beforeEach(async(() => {
+  beforeEach(async() => {
     fixture = TestBed.createComponent(NotFoundPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
-  }));
+  });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
 });

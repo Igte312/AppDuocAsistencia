@@ -12,7 +12,7 @@
       <h2>Estudiante: {{ data.userName }}</h2>
     </div>
   </ion-toolbar>
-  <ion-toolbar>
+  <!-- <ion-toolbar>
     <ion-segment [(ngModel)]="selectedSegment">   
       <ion-segment-button value="ver-asistencia" [routerLink]="['/home/verAsistencia']">
         <ion-label>Mi Asistencia</ion-label>
@@ -21,15 +21,19 @@
         <ion-label>Escanear</ion-label>
       </ion-segment-button>
     </ion-segment>
-  </ion-toolbar>
+  </ion-toolbar> -->
 </ion-header>
 
 <ion-content id="container">
   
 
   
-  <ion-router-outlet></ion-router-outlet>
-  
+  <!-- <ion-router-outlet></ion-router-outlet> -->
+  <div id="container">
+    <ion-button (click)="barcodeScanner()">Scan My Code</ion-button>
+    
+    <p>{{scannedOutput}}</p>
+  </div>
 </ion-content>
 
 <ion-footer>

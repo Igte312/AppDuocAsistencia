@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController, NavController } from '@ionic/angular';
 import { OnInit } from '@angular/core';
+import { ZBarOptions, ZBar } from '@ionic-native/zbar/ngx';
+
 
 @Component({
   selector: 'app-home',
@@ -9,17 +11,32 @@ import { OnInit } from '@angular/core';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage  implements OnInit{
-  userName: string = "";
+  //userName: string = "";
   selectedSegment: string = "ver-asistencia";
   data: any;
+
+  optionZbar:any;
+  scannedOutput:any;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private alertController: AlertController,
     public navCtrl: NavController,
+    private zbarPlugin: ZBar,
   ) {
-    this.activatedRoute.queryParams.subscribe((params) => {
+    this.optionZbar = {
+      flash: 'off',
+      drawSight: false
+    }
+  }
+  ngOnInit() {
+    // this.activatedRoute.params.subscribe(params => {
+    //   this.userName = params['userName'];
+    // });
+    //this.userName = this.activatedRoute.snapshot.paramMap.get('userName') || '';
+    try{
+      this.activatedRoute.queryParams.subscribe((params) => {
       if (
         this.router.getCurrentNavigation()?.extras?.state
       ) {
@@ -29,17 +46,25 @@ export class HomePage  implements OnInit{
         this.router.navigate(['/login']);
       }
     });
-  }
-  ngOnInit() {
-    // this.activatedRoute.params.subscribe(params => {
-    //   this.userName = params['userName'];
-    // });
-    this.userName = this.activatedRoute.snapshot.paramMap.get('userName') || '';
+    }catch{
 
+    }
   }
   
   cerrarSesion(){
     localStorage.removeItem('ingresado')
     this.navCtrl.navigateRoot(['/login']);
   }
+
+  barcodeScanner(){
+    this.zbarPlugin.scan(this.optionZbar)
+   .then(respone => {
+      console.log(respone);
+      this.scannedOutput = respone;
+   })
+   .catch(error => {
+      alert(error);
+   });
+  }
+  
 }
