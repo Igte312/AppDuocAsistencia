@@ -11,9 +11,9 @@ import { ZBarOptions, ZBar } from '@ionic-native/zbar/ngx';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage  implements OnInit{
-  //userName: string = "";
+  userName: string = "";
   selectedSegment: string = "ver-asistencia";
-  data: any;
+  data: any = {username : ''};
 
   optionZbar:any;
   scannedOutput:any;
@@ -31,10 +31,7 @@ export class HomePage  implements OnInit{
     }
   }
   ngOnInit() {
-    // this.activatedRoute.params.subscribe(params => {
-    //   this.userName = params['userName'];
-    // });
-    //this.userName = this.activatedRoute.snapshot.paramMap.get('userName') || '';
+
     try{
       this.activatedRoute.queryParams.subscribe((params) => {
       if (

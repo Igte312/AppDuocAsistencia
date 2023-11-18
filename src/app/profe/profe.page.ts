@@ -10,9 +10,9 @@ import * as QRCode from 'qrcode';
 })
 export class ProfePage implements OnInit {
 
-  userName: string = "hola";
+  userName: string = "";
   selectedSegment: string = "ver-asistencia";
-  data: any;
+  data: any = {userName : ''};
   qrCodeImage: string | null = null;
   mail: string = "";
 
@@ -22,8 +22,7 @@ export class ProfePage implements OnInit {
     private alertController: AlertController,
     public navCtrl: NavController,
   ) {
-   this.userName = 'Hola';
-   this.data.userName = "AAA";
+   
 
   }
   ngOnInit() {
