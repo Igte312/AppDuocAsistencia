@@ -44,7 +44,7 @@ export class FakeApiService {
       );
   }
 
-  private handleError(error: HttpErrorResponse) {
+  public handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // Error del lado del cliente
       console.error('Ocurrió un error:', error.error.message);
@@ -56,7 +56,4 @@ export class FakeApiService {
     // Devuelve un mensaje de error observable con detalles
     return throwError('Algo salió mal; por favor, inténtalo de nuevo más tarde.');
   }
-
-
-  
 }
