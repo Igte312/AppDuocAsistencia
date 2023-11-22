@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController, NavController } from '@ionic/angular';
 import { OnInit } from '@angular/core';
-import { ZBarOptions, ZBar } from '@ionic-native/zbar/ngx';
+import { Barcode, BarcodeScanner } from '@capacitor-mlkit/barcode-scanning';
 
 
 @Component({
@@ -15,20 +15,18 @@ export class HomePage  implements OnInit{
   selectedSegment: string = "ver-asistencia";
   data: any = {username : ''};
 
-  optionZbar:any;
-  scannedOutput:any;
+ 
+  isSupported = false;
+  barcodes: Barcode[] = [];
+
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private alertController: AlertController,
     public navCtrl: NavController,
-    private zbarPlugin: ZBar,
   ) {
-    this.optionZbar = {
-      flash: 'off',
-      drawSight: false
-    }
+    
   }
   ngOnInit() {
 
@@ -46,6 +44,10 @@ export class HomePage  implements OnInit{
     }catch{
 
     }
+
+    BarcodeScanner.isSupported().then((result) => {
+      this.isSupported = result.supported;
+    });
   }
   
   cerrarSesion(){
@@ -53,15 +55,30 @@ export class HomePage  implements OnInit{
     this.navCtrl.navigateRoot(['/login']);
   }
 
-  barcodeScanner(){
-    this.zbarPlugin.scan(this.optionZbar)
-   .then(respone => {
-      console.log(respone);
-      this.scannedOutput = respone;
-   })
-   .catch(error => {
-      alert(error);
-   });
+
+
+  async scan(): Promise<void> {
+    const granted = await this.requestPermissions();
+    if (!granted) {
+      this.presentAlert();
+      return;
+    }
+    const { barcodes } = await BarcodeScanner.scan();
+    this.barcodes.push(...barcodes);
   }
-  
+
+  async requestPermissions(): Promise<boolean> {
+    const { camera } = await BarcodeScanner.requestPermissions();
+    return camera === 'granted' || camera === 'limited';
+  }
+
+  async presentAlert(): Promise<void> {
+    const alert = await this.alertController.create({
+      header: 'Permission denied',
+      message: 'Please grant camera permission to use the barcode scanner.',
+      buttons: ['OK'],
+    });
+    await alert.present();
+  }
+ 
 }

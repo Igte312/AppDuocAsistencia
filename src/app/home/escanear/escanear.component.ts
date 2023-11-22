@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ZBarOptions, ZBar } from '@ionic-native/zbar/ngx';
 
 @Component({
   selector: 'app-escanear',
@@ -7,6 +6,12 @@ import { ZBarOptions, ZBar } from '@ionic-native/zbar/ngx';
   styleUrls: ['./escanear.component.scss'],
 })
 export class EscanearComponent  implements OnInit {
+  scan() {
+    throw new Error('Method not implemented.');
+  }
+  barcodes(barcodes: any) {
+    throw new Error('Method not implemented.');
+  }
 
   constructor() { }
 
