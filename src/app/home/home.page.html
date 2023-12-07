@@ -29,13 +29,7 @@
 
 
   <!-- <ion-router-outlet></ion-router-outlet> -->
-  <ion-list>
-    <ion-item *ngFor="let barcode of barcodes">
-      <ion-label position="stacked">{{ barcode.format }}</ion-label>
-      <ion-input type="text" [value]="barcode.rawValue"></ion-input>
-    </ion-item>
-  </ion-list>
-  <ion-fab slot="fixed"  horizontal="center">
+  <ion-fab slot="fixed" horizontal="center">
     <ion-fab-button (click)="scan()" [disabled]="!isSupported">
       <ion-icon name="scan"></ion-icon>
     </ion-fab-button>

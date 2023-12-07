@@ -17,12 +17,12 @@ export class FakeApiService {
   }
  
 
-  apiUrl = 'http://localhost:3000'; // Asegúrate de que la URL sea la correcta
+  apiUrl = 'https://fake-api-puce.vercel.app/users'; // Asegúrate de que la URL sea la correcta
 
   constructor(private http: HttpClient) { }
 
   agregarUsuario(usuario: any): Observable<any> {
-    const url = `${this.apiUrl}/users`; // Ajusta la ruta según tu API falsa
+    const url = `${this.apiUrl}`; // Ajusta la ruta según tu API falsa
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
@@ -35,7 +35,7 @@ export class FakeApiService {
   }
 
   obtenerUsuarios(): Observable<any[]> {
-    const url = `${this.apiUrl}/users`; // Ajusta la ruta según tu API falsa
+    const url = `${this.apiUrl}`; // Ajusta la ruta según tu API falsa
 
     return this.http.get<any[]>(url)
       .pipe(

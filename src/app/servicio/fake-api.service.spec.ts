@@ -31,7 +31,7 @@ describe('FakeApiService', () => {
       expect(response).toEqual(mockUser);
     });
 
-    const req = httpTestingController.expectOne('http://localhost:3000/users');
+    const req = httpTestingController.expectOne('https://fake-api-puce.vercel.app/users');
     expect(req.request.method).toEqual('POST');
     req.flush(mockUser);
   });
@@ -43,7 +43,7 @@ describe('FakeApiService', () => {
       expect(users).toEqual(mockUsers);
     });
 
-    const req = httpTestingController.expectOne('http://localhost:3000/users');
+    const req = httpTestingController.expectOne('https://fake-api-puce.vercel.app/users');
     expect(req.request.method).toEqual('GET');
     req.flush(mockUsers);
   });
